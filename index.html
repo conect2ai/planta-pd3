@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Planta Didática PD3 · Simulador</title>
+<meta name="description" content="Simulador 3D da planta didática de controle de processos com desmontagem em etapas, ajuste de componentes, malhas PID em cascata e antecipativa e supervisório no estilo ISA-101.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=Sora:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/app.css">
+<script type="importmap">{ "imports": { "three": "./vendor/three/build/three.module.min.js", "three/addons/": "./vendor/three/addons/" } }</script>
+</head>
+<body>
+<header class="top">
+  <div class="brand"><span class="logo">PD3</span><div><b>Planta Didática de Controle de Processos</b><small>Simulador · Conect2ai · UFRN</small></div></div>
+  <nav class="modes" id="modes">
+    <button data-m="teardown">Desmontagem</button>
+    <button data-m="op">Operação 3D</button>
+    <button data-m="hmi">Supervisório</button>
+  </nav>
+  <div class="speed" id="speed"><span>Velocidade</span></div>
+</header>
+
+<main>
+  <div id="stage"></div>
+  <div id="labels"></div>
+
+  <aside class="kpi" id="kpi"></aside>
+
+  <aside class="insp" id="insp">
+    <div class="insp-empty" id="inspEmpty"><b>Inspetor</b><p>Clique em qualquer componente da planta para ver como ele funciona e ajustar seus parâmetros.</p></div>
+    <div class="insp-body" id="inspBody" hidden>
+      <div class="ih"><div><small id="iTag"></small><h2 id="iName"></h2></div><button class="x" id="iClose" aria-label="Fechar">×</button></div>
+      <p id="iDesc"></p>
+      <div class="ilive" id="iLive"></div>
+      <div class="iparams" id="iParams"></div>
+      <button class="btn ghost" id="iHmi" hidden>Abrir malha no supervisório</button>
+    </div>
+  </aside>
+
+  <div class="tdbar" id="tdbar">
+    <button class="play" id="tdPlay" aria-label="Reproduzir desmontagem"><svg viewBox="0 0 24 24"><path d="M7 5l12 7-12 7z"/></svg></button>
+    <div class="tdtrack">
+      <div class="tdcap"><b id="tdStage">Planta montada</b><span id="tdHint">Arraste para desmontar peça por peça</span></div>
+      <input type="range" id="tdRange" min="0" max="5" step="0.001" value="0">
+      <div class="tdticks" id="tdTicks"></div>
+    </div>
+  </div>
+
+  <div class="toggles" id="toggles">
+    <label class="tog"><input type="checkbox" id="tgXray" checked><i></i><span>Visão interna</span></label>
+    <label class="tog"><input type="checkbox" id="tgLabels" checked><i></i><span>Etiquetas</span></label>
+  </div>
+
+  <section id="hmi" class="hmi" hidden></section>
+
+  <div class="capcap" id="capcap" hidden><div class="dots" id="capDots"></div><b id="capStage"></b></div>
+</main>
+<noscript>Este simulador precisa de JavaScript e WebGL.</noscript>
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
